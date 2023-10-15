@@ -69,7 +69,7 @@ DATABASES = {
         'NAME': 'PatientDoctorDB',
         'USER': 'root',
         'PASSWORD': 'vishalanshuman@123',
-        'HOST': 'localhost',
+        'HOST': "127.0.0.1",
         'PORT': '3306',
     }
 }
