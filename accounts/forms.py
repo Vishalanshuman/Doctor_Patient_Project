@@ -16,6 +16,7 @@ class PatientSignupForm(UserCreationForm):
             user.save()
         return user
 
+
 class DoctorSignupForm(UserCreationForm):
     class Meta:
         model=User
@@ -33,3 +34,10 @@ class AddressForm(forms.ModelForm):
         model=Address
         fields=['line1','city','state','pincode']
         exclude=('user',)
+
+
+class LoginForm(forms.Form):
+    username=forms.CharField(max_length=200)
+    password=forms.PasswordInput()
+    class Meta:
+        fields='__all__'

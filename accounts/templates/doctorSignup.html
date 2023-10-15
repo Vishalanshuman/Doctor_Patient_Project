@@ -1,6 +1,13 @@
 {% extends "base.html" %}
-{% block title %}Patient Signup{% endblock title %}
-{% block custom_css %}{% endblock custom_css %}
+{% block title %}Doctor Signup{% endblock title %}
+{% block custom_css %}
+<style>
+
+    .error{
+        color:red;
+    }
+</style>
+{% endblock custom_css %}
 
 {% block content %}
 <div class="row mt-2">
@@ -8,7 +15,7 @@
     <div class="col-6 col-md-6 col-lg-6">
         <div class="card shadow">
             <div class="card-header">
-                <h4>Patient Signup Page</h4>
+                <h4>Doctor Signup Page</h4>
             </div>
             <div class="card-body">
                 <form method="post" enctype="multipart/form-data">
@@ -22,8 +29,8 @@
                                 <label>{{ field.label }}</label>
                                 <input type="{{ field.field.widget.input_type }}" name={{ field.name }} id="{{ field.name }}" class="form-control">
                                 {% if field.errors %}
-                                <div class="alert alert-danger" style="margin:10px">
-                                    {{ field.errors }}
+                                <div class="error">
+                                    <p class="" >{{ field.errors }}</p>
                                 </div>
                                 {% endif %}
                             </div>
@@ -43,8 +50,8 @@
                                 <label>{{ field.label }}</label>
                                 <input type="{{ field.field.widget.input_type }}" name={{ field.name }} id="{{ field.name }}" class="form-control">
                                 {% if field.errors %}
-                                <div class="alert alert-danger" style="margin:10px">
-                                    {{ field.errors }}
+                                <div class="error">
+                                    <p class="" >{{ field.errors }}</p>
                                 </div>
                                 {% endif %}
                             </div>

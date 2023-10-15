@@ -1,6 +1,9 @@
-from django.shortcuts import render
-from accounts.forms import PatientSignupForm,AddressForm,DoctorSignupForm
-from django.http import HttpResponse
+from django.shortcuts import render,redirect
+from accounts.forms import PatientSignupForm,AddressForm,DoctorSignupForm,LoginForm
+from django.http import HttpResponse,HttpResponseRedirect
+from django.contrib import messages
+from django.urls import reverse
+from django.contrib.auth import login,logout,authenticate
 
 # Create your views here.
 
@@ -18,8 +21,8 @@ def PatientSignupView(request):
             address=form1.save(commit=False)
             address.user_id=user1
             address.save()
-            return HttpResponse("Form saved")
-        return HttpResponse(form1.errors ,form.errors)
+            messages.success(request,"Patient Account Created Successfully.")
+            return HttpResponseRedirect(reverse('home_page'))
     context={'form':form,'form1':form1}
     return render(request,'patientSignup.html',context)
 
@@ -35,7 +38,30 @@ def DoctorSignupView(request):
             address=form1.save(commit=False)
             address.user_id=user1
             address.save()
-            return HttpResponse("Form saved")
-        return HttpResponse(form1.errors ,form.errors)
+            messages.success(request,"Doctor Account Created Successfully.")
+            return HttpResponseRedirect(reverse('home_page'))
     context={'form':form,'form1':form1}
-    return render(request,'patientSignup.html',context)
+    return render(request,'doctorSignup.html',context)
+
+
+def loginView(request):
+    if request.method=='POST':
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+
+        user=authenticate(username=username,password=password)
+
+        if user is not None:
+            login(request,user)
+            if user.is_doctor:
+                messages.success(request,"Login Successfully")
+                return render(request,'doctorDashboard.html')
+            else:
+                messages.success(request,"Login Successfully.")
+                return render(request,'patientDashboard.html')
+    return render(request,'login.html')
+
+def logoutView(request):
+    logout(request)
+    messages.success(request,'Logout Successfully.')
+    return redirect('home_page')

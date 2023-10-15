@@ -23,9 +23,23 @@
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
+          {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            <a class="nav-link" href="{% url 'logout' %}" aria-disabled="true">Logout</a>
           </li>
+
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'doctor_signup' %}" aria-disabled="true">Doctor Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'patient_signup' %}" aria-disabled="true">Patient Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}" aria-disabled="true">Login</a>
+          </li>
+          {% endif %}
+
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
